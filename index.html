@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERAISER - Yatırımcı Sunumu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #1a1a1a;
+            color: #e0e0e0;
+            line-height: 1.7;
+        }
+
+        /* Section düzenlemesi - min-height kaldırıldı */
+        section {
+            padding: 60px 40px;
+            padding-left: 100px;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        section:last-of-type {
+            border-bottom: none;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #4a7c4e;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #7fc7d9;
+            margin: 30px 0 15px 0;
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: #c0c0c0;
+        }
+
+        .highlight {
+            color: #97bc62;
+            font-weight: 500;
+        }
+
+        .accent-orange {
+            color: #ff6b35;
+        }
+
+        .accent-blue {
+            color: #7fc7d9;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            background: linear-gradient(180deg, #1a1a1a 0%, #2a3a2a 100%);
+            padding: 100px 40px;
+            padding-left: 100px;
+        }
+
+        .hero img.logo {
+            max-width: 300px;
+            margin-bottom: 30px;
+            border-radius: 20px;
+        }
+
+        .hero .tagline {
+            font-size: 1.4rem;
+            color: #97bc62;
+            margin-bottom: 10px;
+        }
+
+        .hero .subtitle {
+            font-size: 1.1rem;
+            color: #888;
+        }
+
+        /* Image Grid */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .image-grid img {
+            width: 100%;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .image-grid img:hover {
+            transform: scale(1.02);
+        }
+
+        .full-image {
+            width: 100%;
+            border-radius: 8px;
+            margin: 30px 0;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .full-image:hover {
+            transform: scale(1.01);
+        }
+
+        /* Stats Box */
+        .stats-box {
+            background: #252525;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border-left: 4px solid #4a7c4e;
+        }
+
+        .stats-box h4 {
+            color: #97bc62;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .stats-box p {
+            margin-bottom: 10px;
+            color: #b0b0b0;
+        }
+
+        /* Kingdom Colors */
+        .kingdom-forest {
+            color: #97bc62;
+        }
+
+        .kingdom-ice {
+            color: #7fc7d9;
+        }
+
+        .kingdom-lava {
+            color: #ff6b35;
+        }
+
+        /* Tech List */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .tech-item {
+            background: #252525;
+            padding: 15px 20px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+        }
+
+        .tech-item strong {
+            color: #97bc62;
+        }
+
+        /* Budget Table */
+        .budget-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .budget-row:last-child {
+            border-bottom: none;
+            padding-top: 20px;
+            font-weight: 600;
+            color: #97bc62;
+            font-size: 1.2rem;
+        }
+
+        .budget-row .label {
+            color: #c0c0c0;
+        }
+
+        .budget-row .amount {
+            color: #888;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 60px 40px;
+            padding-left: 100px;
+            background: #151515;
+        }
+
+        .footer h2 {
+            border: none;
+            margin-bottom: 20px;
+        }
+
+        /* Sol Navigation */
+        .side-nav {
+            position: fixed;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            background: rgba(26, 26, 26, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 12px 8px;
+            border-radius: 12px;
+            border: 1px solid rgba(151, 188, 98, 0.15);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .side-nav a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            background: transparent;
+            color: #666;
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+
+        .side-nav a:hover {
+            background: rgba(151, 188, 98, 0.1);
+            color: #97bc62;
+            border-left-color: #97bc62;
+        }
+
+        .side-nav a.active {
+            background: rgba(151, 188, 98, 0.15);
+            color: #97bc62;
+            border-left-color: #97bc62;
+        }
+
+        .side-nav a .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+            flex-shrink: 0;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #fff;
+            font-size: 40px;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .lightbox-close:hover {
+            opacity: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            section {
+                padding: 40px 20px;
+                padding-left: 20px;
+            }
+
+            .hero {
+                padding: 60px 20px;
+                padding-left: 20px;
+            }
+
+            .footer {
+                padding-left: 20px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+            }
+
+            .image-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .side-nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+        <div class="container">
+            <img src="images/logo.png" alt="Eraiser Logo" class="logo">
+            <h1>ERAISER</h1>
+            <p class="tagline">Puzzle-Based Story Mini RPG Open World Cozy Indie</p>
+            <p class="subtitle">Geliştirici: Mustafa Ergin &nbsp;|&nbsp; 10+ Yıllık Unity Deneyimi</p>
+        </div>
+    </section>
+
+    <section id="pazar">
+        <div class="container">
+            <h2>Pazar Fırsatı</h2>
+
+            <p>Indie oyun sektörü son yıllarda ciddi bir büyüme gösterdi. Steam platformunda 2023 yılında 14,000'den
+                fazla yeni oyun yayınlandı ve indie oyunlar bu rakamın büyük çoğunluğunu oluşturuyor. Özellikle tek
+                kişilik geliştiricilerin başarı hikayeleri dikkat çekici.</p>
+
+            <img src="images/Indie-Chart-1.png" alt="Bağımsız Oyunların Segmentlere Göre Performansı"
+                class="full-image">
+
+            <div class="stats-box">
+                <h4>Stardew Valley</h4>
+                <p>Tek kişi tarafından geliştirildi, 20 milyondan fazla kopya sattı. Toplam gelir 100 milyon doları
+                    aştı.</p>
+            </div>
+
+            <div class="stats-box">
+                <h4>Supraland</h4>
+                <p>Eraiser'a en yakın referans oyun. Tek kişi tarafından geliştirildi, Steam'de "Overwhelmingly
+                    Positive" değerlendirme aldı. 500,000'den fazla kopya sattı.</p>
+            </div>
+
+            <div class="stats-box">
+                <h4>Hollow Knight</h4>
+                <p>3 kişilik küçük bir ekip tarafından geliştirildi, 15 milyon dolar üzeri gelir elde etti.</p>
+            </div>
+
+            <h3>Hedef Kitle</h3>
+            <p>Puzzle ve keşif seven oyuncular, cozy game hayranları (Stardew Valley, Animal Crossing demografisi),
+                hikaye odaklı deneyim arayanlar. Yaş aralığı 15-40, hem casual hem de deneyimli oyuncular. Türkçe dil
+                desteği sayesinde yerel pazarda da avantajlı konumda.</p>
+        </div>
+    </section>
+
+    <!-- OYUN NEDİR -->
+    <section id="oyun">
+        <div class="container">
+            <h2>Eraiser Nedir?</h2>
+
+            <p>Eraiser, açık dünya keşfi, puzzle çözme, hikaye anlatımı ve hafif RPG mekaniklerini birleştiren cozy bir
+                macera oyunu. Oyuncu, gizemli bir şekilde yumurtadan doğan silgi karakterini kontrol ediyor. Üç farklı
+                krallığın (Orman, Buz, Lav) arasında sıkışmış bir dünyada, dengeyi korumak için yolculuğa çıkıyor.</p>
+
+            <img src="images/Eraiser-1.png" alt="Eraiser Köy Görünümü" class="full-image">
+
+            <h3>Oynanış Felsefesi</h3>
+            <p>Oyun combat ile başlamıyor. İlk saatler tamamen keşif, puzzle çözme ve tatlı görevlerle geçiyor. Oyuncu
+                önce dünyayı tanıyor, karakterlere bağlanıyor. Combat ve RPG mekanikleri doğal bir şekilde, hikayenin
+                gerektirdiği noktada devreye giriyor.</p>
+
+            <h3>Atmosfer</h3>
+            <p>Adventure Time tarzında bir ton hedefleniyor. Tatlı ve renkli ama derinliği olan, çocuksu değil. Hem
+                rahatlatıcı hem de merak uyandırıcı bir atmosfer.</p>
+        </div>
+    </section>
+
+    <!-- ERASE MODU -->
+    <section id="erase">
+        <div class="container">
+            <h2>Erase Modu - Ana Mekanik</h2>
+
+            <p>Erase modu, oyunun kalbinde yer alan benzersiz bir mekanik. Silgi karakterinin özel yeteneği olan bu mod,
+                hem keşif hem de puzzle çözme açısından oynanışın merkezinde.</p>
+
+            <h3>Hareket ve Keşif</h3>
+            <p>Erase modunda karakter dünyayı çok daha hızlı geziyor. Bu sayede geniş açık dünya yorucu olmadan
+                keşfedilebiliyor. Hız avantajı puzzle çözümlerinde de kritik rol oynuyor.</p>
+
+            <h3>Puzzle Entegrasyonu</h3>
+            <p>Oyundaki puzzle'ların büyük çoğunluğu erase modu etrafında tasarlanmış. Karanlık dalları silip yeni
+                yollar açma, zamanlama gerektiren bölümlerde hız kullanma, çevresel engelleri aşma gibi mekanikler
+                mevcut.</p>
+
+            <h3>Combat Kullanımı</h3>
+            <p>Erase modunda düşmana çarpınca düşman hasar alıyor. Bu, klasik kılıç savaşına alternatif bir combat stili
+                sunuyor. Oyuncu isterse tamamen erase modu ile savaşabilir.</p>
+
+            <h3>Islanma Mekaniği ile Kombinasyon</h3>
+            <p>Karakter suya girince ıslanan bir yapıya sahip. Islak haldeyken lavlı yüzeylerden hasar almadan
+                geçilebiliyor. Bu, puzzle tasarımına ekstra bir katman ekliyor. Örneğin önce suya gir, sonra lavlı
+                bölgeden geç, ardından erase modunda ilerlemeye devam et gibi kombinasyonlar mümkün.</p>
+
+            <img src="images/Combat-Mechanics-Beta-1.gif" alt="Combat Mekaniği" class="full-image">
+        </div>
+    </section>
+
+    <!-- HİKAYE -->
+    <section id="hikaye">
+        <div class="container">
+            <h2>Hikaye ve Dünya</h2>
+
+            <h3>Üç Krallık, Bir Denge</h3>
+            <p>Oyun dünyası üç farklı krallıktan oluşuyor. Her birinin kendine özgü felsefesi, halkı ve görsel kimliği
+                var.</p>
+
+            <p><span class="kingdom-forest"><strong>Orman Krallığı</strong></span> kaotik ama canlı ve barışçıl. Dal
+                insanlar, şeker insanlar, kutu insanlar burada yaşıyor. İki krallık arasında tampon bölge görevi
+                görüyor.</p>
+
+            <p><span class="kingdom-ice"><strong>Buz Krallığı</strong></span> düzen ve kontrol odaklı. "Dünya
+                bozulmasın" felsefesiyle hareket ediyor. Kardan adamlar, kristal insanlar bu krallığın sakinleri.
+                Değişimi tehlike olarak görüyorlar.</p>
+
+            <p><span class="kingdom-lava"><strong>Lav Krallığı</strong></span> güç ve hareket odaklı. "Dünya hareket
+                etsin" felsefesiyle ilerliyor. Kaya insanlar, lavlı yaratıklar burada yaşıyor. Sert, ağır ve agresif bir
+                yaklaşımları var.</p>
+
+            <div class="image-grid">
+                <img src="images/Eraiser-3.png" alt="Köy Gündüz">
+                <img src="images/Eraiser-2.png" alt="Köy Gece">
+            </div>
+
+            <h3>Ana Karakter</h3>
+            <p>Oyuncu, yumurtadan doğan sessiz bir silgi karakterini kontrol ediyor. Karakterin üzerinde üç krallığın
+                izi var, bu onu özel yapıyor. Ormanın merkezindeki eski Denge Yapısı sadece bu karaktere tepki veriyor,
+                uzun zamandır kimsenin yapamadığı bir şey bu.</p>
+
+            <h3>Hikaye Yaklaşımı</h3>
+            <p>Oyun net bir "iyi-kötü" sunmuyor. Her krallığın kendi mantığı ve gerekçeleri var. Oyuncu keşfederken
+                kendi yolunu seçiyor. Dünyayı kurtarmak zorunda değil ama hangi tarafa dokunduğu, dünyanın nasıl
+                şekilleneceğini belirliyor.</p>
+        </div>
+    </section>
+
+    <!-- GÖRSEL KİMLİK -->
+    <section id="gorsel">
+        <div class="container">
+            <h2>Görsel Kimlik</h2>
+
+            <p>Low-poly stylized estetik, renkli ve sıcak bir dünya. Dinamik gün-gece döngüsü atmosferi sürekli
+                değiştiriyor. Köy alanı detaylı ve yaşanmış hissi veriyor.</p>
+
+            <div class="image-grid">
+                <img src="images/Eraiser-Combat-1.png" alt="Combat Sahnesi 1">
+                <img src="images/Eraiser-Combat-2.png" alt="Combat Sahnesi 2">
+                <img src="images/Beta-Screenshot-Sunset.png" alt="Gün Batımı">
+                <img src="images/Beta-Screenshot-Night-Fire.png" alt="Gece Kamp Ateşi">
+            </div>
+
+            <h3>Performans</h3>
+            <p>Oyun optimize edilmiş durumda. Beta testlerinde 300 FPS üzeri performans alınıyor. Universal Render
+                Pipeline (URP) kullanılıyor, modern grafik özellikleri destekleniyor.</p>
+        </div>
+    </section>
+
+    <!-- TEKNİK ALTYAPI -->
+    <section id="teknik">
+        <div class="container">
+            <h2>Teknik Altyapı</h2>
+
+            <p>Oyun Unity 2022+ LTS üzerinde geliştirildi. Universal Render Pipeline (URP) kullanılıyor. Kod C# ile
+                yazıldı, modüler ve genişletilebilir bir mimari tercih edildi.</p>
+
+            <h3>Tamamlanmış Sistemler</h3>
+            <div class="tech-grid">
+                <div class="tech-item"><strong>Save Sistemi</strong> - ISaveable interface, tüm oyun durumu kaydediliyor
+                </div>
+                <div class="tech-item"><strong>Quest Sistemi</strong> - ScriptableObject tabanlı, event-driven</div>
+                <div class="tech-item"><strong>Diyalog Sistemi</strong> - Typewriter efekti, sinematik kamera, DOF</div>
+                <div class="tech-item"><strong>Skill Sistemi</strong> - Kategori bazlı skill ağacı</div>
+                <div class="tech-item"><strong>Hotbar Sistemi</strong> - 5 slot, mouse wheel desteği</div>
+                <div class="tech-item"><strong>Gece-Gündüz Döngüsü</strong> - 24 saatlik döngü, dinamik skybox</div>
+                <div class="tech-item"><strong>Yüzme Sistemi</strong> - Su zonları, ıslanma efekti</div>
+                <div class="tech-item"><strong>Minimap</strong> - Render texture, marker sistemi, NavMesh yol gösterimi
+                </div>
+                <div class="tech-item"><strong>Ambient Ses</strong> - Zone bazlı, crossfade geçişler</div>
+                <div class="tech-item"><strong>Combat Sistemi</strong> - Kılıç, blok, düşman AI</div>
+                <div class="tech-item"><strong>Erase Sistemi</strong> - Kara dal silme, dissolve efekti</div>
+                <div class="tech-item"><strong>Canvas Manager</strong> - Merkezi panel yönetimi</div>
+            </div>
+
+            <h3>Kod Kalitesi</h3>
+            <p>Kod modüler ve genişletilebilir şekilde yazıldı. Interface'ler kullanılıyor, SOLID prensipleri
+                uygulanıyor. Yeni sistemler eklemek kolay. Detaylı dokümantasyon mevcut.</p>
+        </div>
+    </section>
+
+    <!-- KAYNAK İHTİYACI -->
+    <section id="kaynak">
+        <div class="container">
+            <h2>Kaynak İhtiyacı</h2>
+
+            <p>Bu proje için sabit bir bütçe talebi yok. Bunun yerine, geliştirme sürecinde ortaya çıkan ihtiyaçların
+                karşılanması için esnek bir destek modeli öneriliyor. İhtiyaç ortaya çıktıkça, somut talepler için ödeme
+                yapılması düşünülüyor.</p>
+
+            <h3>Tahmini İhtiyaçlar (7 Aylık Süreç)</h3>
+
+            <div class="stats-box">
+                <div class="budget-row">
+                    <span class="label">Asset ve Araçlar (terrain, karakter, particle, plugin)</span>
+                    <span class="amount">500-1000 USD</span>
+                </div>
+                <div class="budget-row">
+                    <span class="label">Potansiyel Freelance Destek (harita, model, animasyon)</span>
+                    <span class="amount">500-1500 USD</span>
+                </div>
+                <div class="budget-row">
+                    <span class="label">Platform ve Pazarlama (Steam, trailer, marketing)</span>
+                    <span class="amount">300-500 USD</span>
+                </div>
+                <div class="budget-row">
+                    <span class="label">Toplam Tahmini İhtiyaç</span>
+                    <span class="amount">1300-3000 USD</span>
+                </div>
+            </div>
+
+            <p>Bu rakam 7 aylık geliştirme süreci için gerekli dış kaynak maliyetlerini kapsıyor. Geliştirici emeği
+                dahil değil. Ödeme modeli şeffaf ve kontrol edilebilir şekilde tasarlandı.</p>
+        </div>
+    </section>
+
+    <!-- GELİR PROJEKSİYONU -->
+    <section id="gelir">
+        <div class="container">
+            <h2>Gelir Projeksiyonu</h2>
+
+            <p>Steam fiyatı 15-20 USD olarak planlanıyor (Türkiye'de regional pricing ile 100-150 TL civarı). Aşağıda
+                muhafazakar bir senaryo sunulmaktadır.</p>
+
+            <h3>İlk Yıl Satış Tahmini</h3>
+            <p>Kötümser senaryoda 5,000 kopya, gerçekçi senaryoda 15,000 kopya, iyimser senaryoda 30,000 ve üzeri kopya
+                satışı öngörülüyor.</p>
+
+            <div class="stats-box">
+                <h4>Gerçekçi Senaryo Hesaplaması</h4>
+                <p>15,000 kopya x 15 USD = 225,000 USD brüt gelir</p>
+                <p>Steam komisyonu (%30) düşüldükten sonra = 157,500 USD net</p>
+                <p>Geliştirme desteği (4,000 USD) çıkarıldığında = <strong>153,500 USD net kar</strong></p>
+            </div>
+
+            <h3>Risk Faktörleri</h3>
+            <p>Indie oyun pazarı rekabetçi. Marketing başarısı kritik öneme sahip. Oyun kalitesi ve polish çok önemli.
+                Steam algoritması ve görünürlük kısmen şans faktörü içeriyor.</p>
+
+            <h3>Uzun Vadeli Potansiyel</h3>
+            <p>Steam sonrası console port planlanıyor (Nintendo Switch, PlayStation). DLC ve içerik güncellemeleri ile
+                uzun vadeli gelir mümkün. Sequel veya spin-off potansiyeli de değerlendirilebilir.</p>
+        </div>
+    </section>
+
+    <!-- GELİŞTİRİCİ -->
+    <section id="gelistirici">
+        <div class="container">
+            <h2>Geliştirici Profili</h2>
+
+            <h3>Mustafa Ergin</h3>
+            <p>10 yılı aşkın Unity geliştirme deneyimi. Uzmanlık alanları arasında Unity ve C# programlama, oyun
+                mekanikleri tasarımı, sistem mimarisi, URP ve shader çalışmaları bulunuyor.</p>
+
+            <h3>Tek Kişilik Geliştirme Avantajları</h3>
+            <p>Tutarlı vizyon, hızlı karar alma, düşük maliyet ve esnek geliştirme süreci tek kişilik geliştirmenin
+                güçlü yanları. Zayıf noktalarda (sanat varlıkları, müzik, harita tasarımı) asset store ve freelance
+                destek kullanılıyor.</p>
+
+
+        </div>
+    </section>
+
+    <!-- SONRAKİ ADIMLAR -->
+    <section id="adimlar">
+        <div class="container">
+            <h2>Sonraki Adımlar</h2>
+
+            <h3>Demo Gösterimi</h3>
+            <p>Oynanabilir demo hazır durumda. Köy alanı, temel mekanikler ve birkaç quest gösterilebilir. Demo
+                gösterimi için toplantı ayarlanabilir, oyun canlı olarak test edilebilir.</p>
+
+            <h3>Geri Bildirim Süreci</h3>
+            <p>Yatırımcı ve danışman geri bildirimi değerli. Teknik değerlendirme, pazar analizi ve öneriler bekleniyor.
+            </p>
+
+            <h3>Karar Sonrası</h3>
+            <p>Yatırım kararı olumlu olursa detaylı kaynak planı hazırlanacak, milestone'lar netleştirilecek, düzenli
+                ilerleme raporları paylaşılacak ve şeffaf iletişim sürdürülecek.</p>
+
+            <img src="images/Eraiser-4.png" alt="Köy Gündüz Görünümü" class="full-image">
+        </div>
+    </section>
+
+    <!-- KONSEPT ÇALIŞMALARI -->
+    <section id="konsept">
+        <div class="container">
+            <h2>Konsept Çalışmaları</h2>
+
+            <h3>Kapak Prototipi</h3>
+            <p>Ana karakter silgi ve oyun dünyasını gösteren erken dönem kapak çalışması. Final versiyonda değişiklikler
+                olabilir.</p>
+            <img src="images/Cover-Prototype-1.jpeg" alt="Eraiser Kapak Prototipi" class="full-image"
+                style="max-width: 400px; display: block; margin: 30px auto;">
+
+            <h3>NPC Karakter Konseptleri</h3>
+            <p>Orman Krallığı'nda yaşayan karakterlerin erken dönem konsept çizimleri. Her karakter benzersiz bir
+                kişiliğe ve görsel kimliğe sahip.</p>
+
+            <div class="image-grid">
+                <img src="images/NPC Konsept/Karton-Insan.jpeg" alt="Karton İnsan">
+                <img src="images/NPC Konsept/Sunger-Insan.jpeg" alt="Sünger İnsan">
+                <img src="images/NPC Konsept/Koy-Muhafizi.jpeg" alt="Köy Muhafızı">
+                <img src="images/NPC Konsept/Cali-Canavari.jpeg" alt="Çalı Canavarı">
+                <img src="images/NPC Konsept/Kalem-Insan.jpeg" alt="Kalem İnsan">
+                <img src="images/NPC Konsept/Tas-Insan.jpeg" alt="Taş İnsan">
+                <img src="images/NPC Konsept/Diken-Canavari.jpeg" alt="Diken Canavarı">
+                <img src="images/NPC Konsept/Yuvarlanan-Kozalak.jpeg" alt="Yuvarlanan Kozalak">
+            </div>
+        </div>
+    </section>
+
+    <!-- KAPANIŞ -->
+    <section class="footer" id="footer">
+        <div class="container">
+            <h2>Neden Eraiser?</h2>
+            <p>Güçlü teknik altyapı, benzersiz hikaye, deneyimli geliştirici. Düşük maliyet, yüksek potansiyel.</p>
+            <p style="font-size: 1.3rem; color: #fff; margin: 30px 0;">Eraiser, oyunculara unutulmaz bir deneyim sunmayı
+                hedefliyor. Sadece oynanan değil, hatırlanan bir oyun olmak.</p>
+            <p style="font-size: 1.5rem; color: #97bc62; margin-top: 40px;">Teşekkürler</p>
+        </div>
+    </section>
+
+    <!-- Sol Navigation -->
+    <nav class="side-nav">
+        <a href="#hero"><span class="dot"></span>Başlangıç</a>
+        <a href="#pazar"><span class="dot"></span>Pazar</a>
+        <a href="#oyun"><span class="dot"></span>Oyun</a>
+        <a href="#erase"><span class="dot"></span>Erase Modu</a>
+        <a href="#hikaye"><span class="dot"></span>Hikaye</a>
+        <a href="#gorsel"><span class="dot"></span>Görsel</a>
+        <a href="#teknik"><span class="dot"></span>Teknik</a>
+        <a href="#kaynak"><span class="dot"></span>Kaynak</a>
+        <a href="#gelir"><span class="dot"></span>Gelir</a>
+        <a href="#gelistirici"><span class="dot"></span>Geliştirici</a>
+        <a href="#adimlar"><span class="dot"></span>Adımlar</a>
+        <a href="#konsept"><span class="dot"></span>Konsept</a>
+    </nav>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img src="" alt="Önizleme">
+    </div>
+
+    <script>
+        // Lightbox
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = lightbox.querySelector('img');
+        const images = document.querySelectorAll('.full-image, .image-grid img');
+
+        images.forEach(img => {
+            img.addEventListener('click', () => {
+                lightboxImg.src = img.src;
+                lightbox.classList.add('active');
+            });
+        });
+
+        lightbox.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                lightbox.classList.remove('active');
+            }
+        });
+
+        // Navigation active state
+        const navLinks = document.querySelectorAll('.side-nav a');
+        const sections = document.querySelectorAll('section[id]');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
