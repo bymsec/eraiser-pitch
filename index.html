@@ -324,6 +324,81 @@
             opacity: 1;
         }
 
+        /* Video Player */
+        .video-container {
+            position: relative;
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 30px 0;
+            cursor: pointer;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .video-container video {
+            width: 100%;
+            display: block;
+        }
+
+        .video-container::after {
+            content: '🔍 Tam Ekran için Tıkla';
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .video-container:hover::after {
+            opacity: 1;
+        }
+
+        /* Video Lightbox */
+        .video-lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .video-lightbox.active {
+            display: flex;
+        }
+
+        .video-lightbox video {
+            max-width: 95%;
+            max-height: 95%;
+            border-radius: 12px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .video-lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #fff;
+            font-size: 40px;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+            z-index: 1001;
+        }
+
+        .video-lightbox-close:hover {
+            opacity: 1;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             section {
@@ -458,6 +533,21 @@
                 geçilebiliyor. Bu, puzzle tasarımına ekstra bir katman ekliyor. Örneğin önce suya gir, sonra lavlı
                 bölgeden geç, ardından erase modunda ilerlemeye devam et gibi kombinasyonlar mümkün.</p>
 
+            <div class="video-container" id="swimVideoContainer">
+                <video autoplay loop muted playsinline id="swimVideo">
+                    <source src="videos/Swim-And-Wet-System.mp4" type="video/mp4">
+                    Video yüklenemedi.
+                </video>
+            </div>
+
+            <h3>Erase Modu Gösterimi</h3>
+            <div class="video-container" id="eraseVideoContainer">
+                <video autoplay loop muted playsinline id="eraseVideo">
+                    <source src="videos/Erase-Mode-1.mp4" type="video/mp4">
+                    Video yüklenemedi.
+                </video>
+            </div>
+
             <img src="images/Combat-Mechanics-Beta-1.gif" alt="Combat Mekaniği" class="full-image">
         </div>
     </section>
@@ -470,6 +560,8 @@
             <h3>Üç Krallık, Bir Denge</h3>
             <p>Oyun dünyası üç farklı krallıktan oluşuyor. Her birinin kendine özgü felsefesi, halkı ve görsel kimliği
                 var.</p>
+
+            <img src="images/Map-Reference.png" alt="Eraiser Dünya Haritası" class="full-image">
 
             <p><span class="kingdom-forest"><strong>Orman Krallığı</strong></span> kaotik ama canlı ve barışçıl. Dal
                 insanlar, şeker insanlar, kutu insanlar burada yaşıyor. İki krallık arasında tampon bölge görevi
@@ -717,8 +809,16 @@
         <img src="" alt="Önizleme">
     </div>
 
+    <!-- Video Lightbox -->
+    <div class="video-lightbox" id="videoLightbox">
+        <span class="video-lightbox-close">&times;</span>
+        <video autoplay loop muted playsinline id="lightboxVideo">
+            <source src="" type="video/mp4">
+        </video>
+    </div>
+
     <script>
-        // Lightbox
+        // Image Lightbox
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = lightbox.querySelector('img');
         const images = document.querySelectorAll('.full-image, .image-grid img');
@@ -734,9 +834,39 @@
             lightbox.classList.remove('active');
         });
 
+        // Video Lightbox
+        const videoLightbox = document.getElementById('videoLightbox');
+        const lightboxVideo = document.getElementById('lightboxVideo');
+
+        // Tüm video containerları için lightbox
+        const videoContainers = document.querySelectorAll('.video-container');
+        videoContainers.forEach(container => {
+            const video = container.querySelector('video');
+            container.addEventListener('click', () => {
+                lightboxVideo.src = video.querySelector('source').src;
+                videoLightbox.classList.add('active');
+                lightboxVideo.play();
+            });
+        });
+
+        videoLightbox.addEventListener('click', (e) => {
+            if (e.target !== lightboxVideo) {
+                videoLightbox.classList.remove('active');
+                lightboxVideo.pause();
+            }
+        });
+
+        document.querySelector('.video-lightbox-close').addEventListener('click', () => {
+            videoLightbox.classList.remove('active');
+            lightboxVideo.pause();
+        });
+
+        // Escape tuşu
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 lightbox.classList.remove('active');
+                videoLightbox.classList.remove('active');
+                lightboxVideo.pause();
             }
         });
 
